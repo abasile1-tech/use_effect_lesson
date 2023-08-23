@@ -3,21 +3,21 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
-  console.log("I'm updating");
-
-  const [counter, setCounter] = useState(0);
-  const [name, setName] = useState("");
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("The counter has updated");
-  }, [counter]);
+    console.log("Initial render");
+    const response = fetch("https://randomuser.me/api/?results=5")
+      .then((res) => res.json())
+      .then((data) => setUsers(data.results));
+    setLoading(false);
+  }, []);
 
   return (
     <>
       <h1>Use Effect Lesson</h1>
-      <p>{counter}</p>
-      <button onClick={() => setCounter(counter + 1)}>Increment</button>
-      <input onChange={(e) => setName(e.target.value)} value={name} />
+      {loading ? <h1>Loading</h1> : <p>{users.length}</p>}
     </>
   );
 }
