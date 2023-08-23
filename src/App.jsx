@@ -17,7 +17,17 @@ function App() {
   return (
     <>
       <h1>Use Effect Lesson</h1>
-      {loading ? <h1>Loading</h1> : <p>{users.length}</p>}
+      {loading ? (
+        <h1>Loading</h1>
+      ) : (
+        <ul>
+          {users.map((user, id) => (
+            <li key={id}>
+              {user.email}: {user.name.first} {user.name.last}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
